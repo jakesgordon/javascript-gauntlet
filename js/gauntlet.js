@@ -6,7 +6,7 @@ Gauntlet = function() {
   // CONFIGURATION CONSTANTS and ENUM's
   //===========================================================================
 
-  var VERSION  = "0.9.4",
+  var VERSION  = "1.0.0",
       FPS      = 60,
       TILE     = 32,
       STILE    = 32,
