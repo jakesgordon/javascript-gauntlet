@@ -370,11 +370,14 @@ Gauntlet = function() {
     onload: function(event, previous, current, nlevel) {
       var level    = cfg.levels[nlevel],
           self     = this,
-          onloaded = function() { self.play(new Map(nlevel)); };
-      if (level.source)
+          onloaded = function() { $('booting').hide(); self.play(new Map(nlevel)); };
+      if (level.source) {
         onloaded();
-      else
+      }
+      else {
+        $('booting').show();
         level.source = Game.createImage(level.url + "?cachebuster=" + VERSION , { onload: onloaded });
+      }
     },
 
     onplay: function(event, previous, current, map) {

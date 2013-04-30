@@ -20,6 +20,7 @@ KNOWN ISSUES
 ============
 
  - No support for touch/mobile devices
+ - Startup (and level transition) can be slow over a slow network connection (duh)
 
 TODO
 ====

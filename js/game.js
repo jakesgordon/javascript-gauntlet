@@ -389,7 +389,7 @@ Game = {
         resources.sounds[sound.id] = AudioFX(sound.name, sound, onload);
       }
 
-      setTimeout(loaded, 4000); // need a timeout because HTML5 audio canplay event is VERY VERY FLAKEY (especially on slow connections)
+      setTimeout(loaded, 15000); // need a timeout because HTML5 audio canplay event is VERY VERY FLAKEY (especially on slow connections)
 
     }
   }
