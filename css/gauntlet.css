@@ -1,0 +1,104 @@
+/*******************************/
+/* global document body styles */
+/*******************************/
+
+body {
+  background: black;
+  color:      #CCC;
+  user-select: none;
+}
+
+/**************************/
+/* unique id-based styles */
+/**************************/
+
+#gauntlet       { margin: 1em auto; position: relative; background: black; }
+#booting        { position: absolute; width: 6%; left: 30%; top: 40%;      } 
+#splash         { position: absolute; display: none; }
+#canvas         { display: inline-block; vertical-align: top; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+#help           { position: absolute; width: 33%; left: 22%; top: 30%; text-align: center; font-size: 1.5em; font-weight: bold; background-color: rgba(255, 255, 255, 0.75); border: 6px solid black; color: black; padding: 1em; display: inline-block; border-radius: 0.5em; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+#scoreboard     { display: inline-block; vertical-align: top; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+#stats          { position: absolute; right: -90px; bottom: 0; color: white; }
+#instructions   { font-style: italic; color: #999; font-size: 9pt; margin-left: 1em; margin-top: 0.5em; }
+#instructions b { color: #DDD; }
+
+#gauntlet.menu #splash { display: inline-block; }
+#gauntlet.help #canvas { opacity: 0.5; }
+
+/**************/
+/* scoreboard */
+/**************/
+
+#scoreboard { text-align: center; }
+
+#scoreboard #logo             { width: 100%; }
+#scoreboard .level            { margin-top: 0px; margin-bottom: 0px; }
+#scoreboard hr                { width: 50%; margin: 1em auto; border: 1px solid #111; border-top: 0px; border-left: 0px; border-right: 0px; }
+#scoreboard .high             { margin-bottom: 2em; font-size: 82.5%; opacity: 0.5; }
+#scoreboard .high .value      { font-weight: bold; }
+
+#scoreboard .player           { height: 6em; border: 2px solid #222; margin: 1em 0.5em; padding: 0.5em 0; opacity: 0.5; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+#scoreboard .player .name     { font-weight: bold; }
+#scoreboard .player .score    { display: none; }
+#scoreboard .player .health   { display: none; }
+#scoreboard .player .treasure { display: none; }
+#scoreboard .player .press    { color: #999; margin-top: 1em; }
+#scoreboard .player .press b  { color: white; }
+#scoreboard .player .multi    { color: #666; font-style: italic; margin-top: 1em; font-size: 82.5%; }
+
+#scoreboard .player.active           { opacity: 1.0; }
+#scoreboard .player.active .score    { display: inline-block; text-align: right; margin-right: 1em; }
+#scoreboard .player.active .health   { display: inline-block; text-align: left;  margin-left:  1em; }
+#scoreboard .player.active .treasure { display: block; text-align: left; margin: 0 0.5em; margin-top: 0.25em; }
+#scoreboard .player.active .label    { opacity: 0.7; font-size: smaller; }
+#scoreboard .player.active .value    { opacity: 1.0; font-weight: bold;  }
+
+#scoreboard .player .treasure img.key    { margin-right: 2px;               width: 1em; height: 1em; }
+#scoreboard .player .treasure img.potion { margin-left:  0px; float: right; width: 1em; height: 1em; }
+
+#scoreboard #warrior         { color: #F90503; }
+#scoreboard #valkyrie        { color: #08B4F0; }
+#scoreboard #wizard          { color: #F5FC00; }
+#scoreboard #elf             { color: #00FF03; }
+
+#scoreboard #warrior  .press b { color: #F90503; }
+#scoreboard #valkyrie .press b { color: #08B4F0; }
+#scoreboard #wizard   .press b { color: #F5FC00; }
+#scoreboard #elf      .press b { color: #00FF03; }
+
+#scoreboard #warrior.active  { border-color: #F90503; }
+#scoreboard #valkyrie.active { border-color: #08B4F0; }
+#scoreboard #wizard.active   { border-color: #F5FC00; }
+#scoreboard #elf.active      { border-color: #00FF03; }
+
+#scoreboard #warrior.weak  { background-color: #F90503; }
+#scoreboard #valkyrie.weak { background-color: #08B4F0; }
+#scoreboard #wizard.weak   { background-color: #F5FC00; }
+#scoreboard #elf.weak      { background-color: #00FF03; }
+
+#scoreboard .high.warrior  .value { color: #F90503; }
+#scoreboard .high.valkyrie .value { color: #08B4F0; }
+#scoreboard .high.wizard   .value { color: #F5FC00; }
+#scoreboard .high.elf      .value { color: #00FF03; }
+
+#gauntlet         #scoreboard .player        .press { display: none;  }
+#gauntlet.menu    #scoreboard .player        .press { display: block; }
+#gauntlet         #scoreboard .player        .multi { display: block; }
+#gauntlet.booting #scoreboard .player        .multi { display: none;  }
+#gauntlet.menu    #scoreboard .player        .multi { display: none;  }
+#gauntlet         #scoreboard .player.active .multi { display: none;  }
+
+#sound     { width: 24px; height: 24px; background: url(../images/mute.png); display: inline-block; cursor: pointer; position: absolute; right: 1em; }
+#sound.on  { background-position:   0   0; }
+#sound.off { background-position: -24px 0; }
+
+/*****************************/
+/* @media query based layout */
+/*****************************/
+
+@media screen and (min-width:    0px) and (min-height:    0px) { #gauntlet { width:  512px; height: 384px; font-size:  7pt; } #canvas { width: 384px; height: 384px; } #splash { width: 384px; height: 384px; } #scoreboard { width: /*  512 - 384 - 8 = */ 120px; height: 384px; } } /* block = 16 */
+@media screen and (min-width:  840px) and (min-height:  530px) { #gauntlet { width:  640px; height: 480px; font-size:  9pt; } #canvas { width: 480px; height: 480px; } #splash { width: 480px; height: 480px; } #scoreboard { width: /*  640 - 480 - 8 = */ 152px; height: 480px; } } /* block = 20 */
+@media screen and (min-width:  968px) and (min-height:  626px) { #gauntlet { width:  768px; height: 576px; font-size: 11pt; } #canvas { width: 576px; height: 576px; } #splash { width: 576px; height: 576px; } #scoreboard { width: /*  768 - 576 - 8 = */ 184px; height: 576px; } } /* block = 24 */
+@media screen and (min-width: 1096px) and (min-height:  722px) { #gauntlet { width:  896px; height: 672px; font-size: 13pt; } #canvas { width: 672px; height: 672px; } #splash { width: 672px; height: 672px; } #scoreboard { width: /*  896 - 672 - 8 = */ 216px; height: 672px; } } /* block = 28 */
+@media screen and (min-width: 1224px) and (min-height:  818px) { #gauntlet { width: 1024px; height: 768px; font-size: 15pt; } #canvas { width: 768px; height: 768px; } #splash { width: 768px; height: 768px; } #scoreboard { width: /* 1024 - 768 - 8 = */ 248px; height: 768px; } } /* block = 32 */
+

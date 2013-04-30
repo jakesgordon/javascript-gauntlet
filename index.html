@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <link href="css/normalize.css" media="screen, print" rel="stylesheet" type="text/css" />
+  <link href="css/gauntlet.css"  media="screen, print" rel="stylesheet" type="text/css" />
+  <title>Javascript Gauntlet</title>
+</head>
+
+<body>
+
+  <div id="gauntlet">
+
+    <img id="booting" src='images/booting.gif'>
+    <img id="splash"  src='images/splash.jpg'>
+
+    <canvas id="canvas">
+      <div class="unsupported">
+        Sorry, this example cannot be run because your browser does not support the &lt;canvas&gt; element
+      </div>
+    </canvas>
+
+    <div id="help" style="display:none;"></div>
+
+    <div id="scoreboard">
+
+      <img id="logo" src="images/logo.jpg">
+
+      <h3 class="level"> &nbsp; </h3>
+
+      <hr>
+
+      <div class="high">High Score: <span class='value'>000000</span></div>
+
+      <div id='warrior' class='player'>
+        <div class='name'>Warrior</div>
+        <div class='score'><div class='label'>Score</div><div class='value'>000000</div></div>
+        <div class='health'><div class='label'>Health</div><div class='value'>000</div></div>
+        <div class='treasure'>
+          <img class='key' src="images/key.png"><img class='key' src="images/key.png"><img class='key' src="images/key.png"><img class='key' src="images/key.png">
+          <img class='potion' src="images/potion.png"><img class='potion' src="images/potion.png"><img class='potion' src="images/potion.png"><img class='potion' src="images/potion.png">
+        </div>
+        <div class='press'>PRESS <b>1</b> TO START</div>
+        <div class='multi'>multiplayer coming soon</div>
+      </div>
+
+      <div id='valkyrie' class='player'>
+        <div class='name'>Valkyrie</div>
+        <div class='score'><div class='label'>Score</div><div class='value'>000000</div></div>
+        <div class='health'><div class='label'>Health</div><div class='value'>000</div></div>
+        <div class='treasure'>
+          <img class='key' src="images/key.png"><img class='key' src="images/key.png"><img class='key' src="images/key.png"><img class='key' src="images/key.png">
+          <img class='potion' src="images/potion.png"><img class='potion' src="images/potion.png"><img class='potion' src="images/potion.png"><img class='potion' src="images/potion.png">
+        </div>
+        <div class='press'>PRESS <b>2</b> TO START</div>
+        <div class='multi'>multiplayer coming soon</div>
+      </div>
+
+      <div id='wizard' class='player'>
+        <div class='name'>Wizard</div>
+        <div class='score'><div class='label'>Score</div><div class='value'>000000</div></div>
+        <div class='health'><div class='label'>Health</div><div class='value'>000</div></div>
+        <div class='treasure'>
+          <img class='key' src="images/key.png"><img class='key' src="images/key.png"><img class='key' src="images/key.png"><img class='key' src="images/key.png">
+          <img class='potion' src="images/potion.png"><img class='potion' src="images/potion.png"><img class='potion' src="images/potion.png"><img class='potion' src="images/potion.png">
+        </div>
+        <div class='press'>PRESS <b>3</b> TO START</div>
+        <div class='multi'>multiplayer coming soon</div>
+      </div>
+
+      <div id='elf' class='player'>
+        <div class='name'>Elf</div>
+        <div class='score'><div class='label'>Score</div><div class='value'>000000</div></div>
+        <div class='health'><div class='label'>Health</div><div class='value'>000</div></div>
+        <div class='treasure'>
+          <img class='key' src="images/key.png"><img class='key' src="images/key.png"><img class='key' src="images/key.png"><img class='key' src="images/key.png">
+          <img class='potion' src="images/potion.png"><img class='potion' src="images/potion.png"><img class='potion' src="images/potion.png"><img class='potion' src="images/potion.png">
+        </div>
+        <div class='press'>PRESS <b>4</b> TO START</div>
+        <div class='multi'>multiplayer coming soon</div>
+      </div>
+
+      <div id='sound' class='on' title='toggle music and fx' style='display:none;'></div>
+
+    </div>
+
+    <div id='instructions'>
+      <b>ARROW</b> keys to move, <b>HOLD SPACE</b> to fire, <b>ENTER</b> to use potion
+    </div>
+
+  </div>
+
+  <script src="js/vendor.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/gauntlet.js"></script>
+  <script>
+    Game.run(Gauntlet);
+  </script>
+
+</body>
+</html>
