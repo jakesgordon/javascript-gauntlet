@@ -3,8 +3,8 @@ Javascript Gauntlet
 
 An HTML5 Gauntlet-style Game
 
- * [play the game](http://codeincomplete.com/projects/gauntlet/index.html)
- * read a [blog article](http://codeincomplete.com/posts/2013/4/30/javascript_gauntlet/)
+ * [play the game](https://jakesgordon.com/games/gauntlet/)
+ * read a [blog article](https://jakesgordon.com/writing/javascript-gauntlet/)
  * view the [source](https://github.com/jakesgordon/javascript-gauntlet)
 
 >> NOTE: single player only at this time, multiplayer coming later
