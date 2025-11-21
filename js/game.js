@@ -736,3 +736,128 @@ Game.Math = {
 
 }
 
+
+Game.Gamepad = {
+  
+  gamepads: {},
+  deadzone: 0.3,
+  
+  init: function() {
+    window.addEventListener("gamepadconnected", this.onGamepadConnected.bind(this));
+    window.addEventListener("gamepaddisconnected", this.onGamepadDisconnected.bind(this));
+    
+    // Start polling for gamepad input
+    this.poll();
+  },
+  
+  onGamepadConnected: function(e) {
+    console.log("Gamepad connected:", e.gamepad.id);
+    this.gamepads[e.gamepad.index] = {
+      gamepad: e.gamepad,
+      previousButtons: [],
+      previousAxes: []
+    };
+  },
+  
+  onGamepadDisconnected: function(e) {
+    console.log("Gamepad disconnected:", e.gamepad.id);
+    delete this.gamepads[e.gamepad.index];
+  },
+  
+  poll: function() {
+    var gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
+    
+    for (var i = 0; i < gamepads.length; i++) {
+      if (gamepads[i] && this.gamepads[i]) {
+        this.gamepads[i].gamepad = gamepads[i];
+        this.processGamepad(i);
+      }
+    }
+    
+    requestAnimationFrame(this.poll.bind(this));
+  },
+  
+  processGamepad: function(index) {
+    var gamepadData = this.gamepads[index];
+    var gamepad = gamepadData.gamepad;
+    
+    // Process buttons
+    for (var i = 0; i < gamepad.buttons.length; i++) {
+      var button = gamepad.buttons[i];
+      var pressed = button.pressed || (button.value > 0.5);
+      var wasPressed = gamepadData.previousButtons[i] || false;
+      
+      if (pressed && !wasPressed) {
+        this.onButtonDown(index, i);
+      } else if (!pressed && wasPressed) {
+        this.onButtonUp(index, i);
+      }
+      
+      gamepadData.previousButtons[i] = pressed;
+    }
+    
+    // Process axes (analog sticks)
+    var leftStickX = gamepad.axes[0];
+    var leftStickY = gamepad.axes[1];
+    var rightStickX = gamepad.axes[2];
+    var rightStickY = gamepad.axes[3];
+    
+    this.processAnalogStick(index, leftStickX, leftStickY, 'left');
+    this.processAnalogStick(index, rightStickX, rightStickY, 'right');
+  },
+  
+  processAnalogStick: function(gamepadIndex, x, y, stick) {
+    // Apply deadzone
+    if (Math.abs(x) < this.deadzone) x = 0;
+    if (Math.abs(y) < this.deadzone) y = 0;
+    
+    // Convert to direction
+    var dir = null;
+    if (Math.abs(x) > Math.abs(y)) {
+      dir = x > 0 ? 'right' : 'left';
+    } else if (Math.abs(y) > 0) {
+      dir = y > 0 ? 'down' : 'up';
+    }
+    
+    this.onAnalogMove(gamepadIndex, stick, dir, x, y);
+  },
+  
+  onButtonDown: function(gamepadIndex, buttonIndex) {
+    if (window.game && window.game.onGamepadButton) {
+      window.game.onGamepadButton(gamepadIndex, buttonIndex, true);
+    }
+  },
+  
+  onButtonUp: function(gamepadIndex, buttonIndex) {
+    if (window.game && window.game.onGamepadButton) {
+      window.game.onGamepadButton(gamepadIndex, buttonIndex, false);
+    }
+  },
+  
+  onAnalogMove: function(gamepadIndex, stick, direction, x, y) {
+    if (window.game && window.game.onGamepadAnalog) {
+      window.game.onGamepadAnalog(gamepadIndex, stick, direction, x, y);
+    }
+  },
+  
+  // Button mapping for standard gamepad
+  BUTTONS: {
+    A: 0,           // Cross on PlayStation
+    B: 1,           // Circle on PlayStation  
+    X: 2,           // Square on PlayStation
+    Y: 3,           // Triangle on PlayStation
+    LB: 4,          // L1 on PlayStation
+    RB: 5,          // R1 on PlayStation
+    LT: 6,          // L2 on PlayStation
+    RT: 7,          // R2 on PlayStation
+    SELECT: 8,      // Share on PlayStation
+    START: 9,       // Options on PlayStation
+    LS: 10,         // L3 on PlayStation
+    RS: 11,         // R3 on PlayStation
+    DPAD_UP: 12,
+    DPAD_DOWN: 13,
+    DPAD_LEFT: 14,
+    DPAD_RIGHT: 15,
+    HOME: 16        // PS button on PlayStation
+  }
+};
