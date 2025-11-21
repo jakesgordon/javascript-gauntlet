@@ -243,22 +243,45 @@ Gauntlet = function() {
     ],
 
     keys: [
+      // Player selection
       { key: Game.Key.ONE,    mode: 'up',   state: 'menu',    action: function()    { this.start(PLAYER.WARRIOR);      } },
       { key: Game.Key.TWO,    mode: 'up',   state: 'menu',    action: function()    { this.start(PLAYER.VALKYRIE);     } },
       { key: Game.Key.THREE,  mode: 'up',   state: 'menu',    action: function()    { this.start(PLAYER.WIZARD);       } },
       { key: Game.Key.FOUR,   mode: 'up',   state: 'menu',    action: function()    { this.start(PLAYER.ELF);          } },
+      
+      { key: Game.Key.ONE,    mode: 'up',   state: 'playing',    action: function()    { this.addMultiPlayer(PLAYER.WARRIOR);      } },
+      { key: Game.Key.TWO,    mode: 'up',   state: 'playing',    action: function()    { this.addMultiPlayer(PLAYER.VALKYRIE);     } },
+      { key: Game.Key.THREE,  mode: 'up',   state: 'playing',    action: function()    { this.addMultiPlayer(PLAYER.WIZARD);       } },
+      { key: Game.Key.FOUR,   mode: 'up',   state: 'playing',    action: function()    { this.addMultiPlayer(PLAYER.ELF);          } },
+      
+      // Player 1 controls (Arrow keys + Space + Enter)
+      { key: Game.Key.LEFT,   mode: 'down', state: 'playing', action: function()    { this.p1Keyboard?.moveLeft(true);      } },
+      { key: Game.Key.RIGHT,  mode: 'down', state: 'playing', action: function()    { this.p1Keyboard?.moveRight(true);     } },
+      { key: Game.Key.UP,     mode: 'down', state: 'playing', action: function()    { this.p1Keyboard?.moveUp(true);        } },
+      { key: Game.Key.DOWN,   mode: 'down', state: 'playing', action: function()    { this.p1Keyboard?.moveDown(true);      } },
+      { key: Game.Key.LEFT,   mode: 'up',   state: 'playing', action: function()    { this.p1Keyboard?.moveLeft(false);     } },
+      { key: Game.Key.RIGHT,  mode: 'up',   state: 'playing', action: function()    { this.p1Keyboard?.moveRight(false);    } },
+      { key: Game.Key.UP,     mode: 'up',   state: 'playing', action: function()    { this.p1Keyboard?.moveUp(false);       } },
+      { key: Game.Key.DOWN,   mode: 'up',   state: 'playing', action: function()    { this.p1Keyboard?.moveDown(false);     } },
+      { key: Game.Key.RETURN,  mode: 'down', state: 'playing', action: function()   { this.p1Keyboard?.fire(true);          } },
+      { key: Game.Key.RETURN,  mode: 'up',   state: 'playing', action: function()   { this.p1Keyboard?.fire(false);         } },
+      { key: Game.Key.ZERO, mode: 'up',   state: 'playing', action: function()      { this.p1Keyboard?.nuke();              } },
+
+      // Player 2 controls (WASD + Shift + Ctrl)
+      { key: Game.Key.A,      mode: 'down', state: 'playing', action: function()    { this.p2Keyboard?.moveLeft(true);      } },
+      { key: Game.Key.D,      mode: 'down', state: 'playing', action: function()    { this.p2Keyboard?.moveRight(true);     } },
+      { key: Game.Key.W,      mode: 'down', state: 'playing', action: function()    { this.p2Keyboard?.moveUp(true);        } },
+      { key: Game.Key.S,      mode: 'down', state: 'playing', action: function()    { this.p2Keyboard?.moveDown(true);      } },
+      { key: Game.Key.A,      mode: 'up',   state: 'playing', action: function()    { this.p2Keyboard?.moveLeft(false);     } },
+      { key: Game.Key.D,      mode: 'up',   state: 'playing', action: function()    { this.p2Keyboard?.moveRight(false);    } },
+      { key: Game.Key.W,      mode: 'up',   state: 'playing', action: function()    { this.p2Keyboard?.moveUp(false);       } },
+      { key: Game.Key.S,      mode: 'up',   state: 'playing', action: function()    { this.p2Keyboard?.moveDown(false);     } },
+      { key: Game.Key.SPACE,   mode: 'down', state: 'playing', action: function()   { this.p2Keyboard?.fire(true);          } },
+      { key: Game.Key.SPACE,   mode: 'up',   state: 'playing', action: function()   { this.p2Keyboard?.fire(false);         } },
+      { key: Game.Key.TILDA,   mode: 'up',   state: 'playing', action: function()   { this.p2Keyboard?.nuke();              } },
+
+      // Common controls
       { key: Game.Key.ESC,    mode: 'up',   state: 'playing', action: function()    { this.quit();                     } },
-      { key: Game.Key.LEFT,   mode: 'down', state: 'playing', action: function()    { this.player.moveLeft(true);      } },
-      { key: Game.Key.RIGHT,  mode: 'down', state: 'playing', action: function()    { this.player.moveRight(true);     } },
-      { key: Game.Key.UP,     mode: 'down', state: 'playing', action: function()    { this.player.moveUp(true);        } },
-      { key: Game.Key.DOWN,   mode: 'down', state: 'playing', action: function()    { this.player.moveDown(true);      } },
-      { key: Game.Key.LEFT,   mode: 'up',   state: 'playing', action: function()    { this.player.moveLeft(false);     } },
-      { key: Game.Key.RIGHT,  mode: 'up',   state: 'playing', action: function()    { this.player.moveRight(false);    } },
-      { key: Game.Key.UP,     mode: 'up',   state: 'playing', action: function()    { this.player.moveUp(false);       } },
-      { key: Game.Key.DOWN,   mode: 'up',   state: 'playing', action: function()    { this.player.moveDown(false);     } },
-      { key: Game.Key.SPACE,  mode: 'down', state: 'playing', action: function()    { this.player.fire(true);          } },
-      { key: Game.Key.SPACE,  mode: 'up',   state: 'playing', action: function()    { this.player.fire(false);         } },
-      { key: Game.Key.RETURN, mode: 'up',   state: 'playing', action: function()    { this.player.nuke();              } },
       { key: Game.Key.ESC,    mode: 'up',   state: 'help',    action: function()    { this.resume();                   } },
       { key: Game.Key.RETURN, mode: 'up',   state: 'help',    action: function()    { this.resume();                   } },
       { key: Game.Key.SPACE,  mode: 'up',   state: 'help',    action: function()    { this.resume();                   } }
@@ -332,12 +355,19 @@ Gauntlet = function() {
       StateMachine.create(cfg.state, this);
       Game.PubSub.enable(cfg.pubsub, this);
       Game.Key.map(cfg.keys, this);
+  
+      // Initialize gamepad support
+      Game.Gamepad.init();
+      
 
       Game.loadResources(cfg.images, cfg.sounds, function(resources) {
         this.runner      = runner;
         this.storage     = this.clean(Game.storage());
         this.images      = resources.images;
-        this.player      = new Player();
+        this.players     = [];
+        this.p1Keyboard  = null;
+        this.p2Keyboard  = null;
+        this.controllerAssignment = [];
         this.viewport    = new Viewport();
         this.scoreboard  = new Scoreboard(cfg.levels[this.loadLevel()], this.loadHighScore(), this.loadHighWho());
         this.render      = new Render(resources.images);
@@ -362,8 +392,9 @@ Gauntlet = function() {
       this.sounds.playMenuMusic();
     },
 
-    onstart: function(event, previous, current, type, nlevel) {
-      this.player.join(type);
+    // Update start method to handle player selection
+    onstart: function(event, previous, current, type, nlevel, controllerIndex) {
+      this.addPlayer(type, controllerIndex);  
       this.load(to.number(nlevel, this.loadLevel()));
     },
 
@@ -378,6 +409,7 @@ Gauntlet = function() {
         $('booting').show();
         level.source = Game.createImage(level.url + "?cachebuster=" + VERSION , { onload: onloaded });
       }
+          
     },
 
     onplay: function(event, previous, current, map) {
@@ -411,7 +443,11 @@ Gauntlet = function() {
 
     onfinish: function(event, previous, current) {
       this.saveHighScore();
-      this.player.leave();
+      for (var i = 0; i < this.players.length; i++) {
+        if (this.players[i].active) {
+          this.players[i].leave();
+        }
+      }
     },
 
     onenterhelp: function(event, previous, current, msg) { $('help').update(msg).show(); setTimeout(this.autoresume.bind(this), 4000); },
@@ -434,9 +470,13 @@ Gauntlet = function() {
 
     update: function(frame) {
       if (this.canUpdate) {
-        this.player.update(   frame, this.player, this.map, this.viewport);
-        this.map.update(      frame, this.player, this.map, this.viewport);
-        this.viewport.update( frame, this.player, this.map, this.viewport);
+        for (var i = 0; i < this.players.length; i++) {
+          if (this.players[i].active) {
+            this.players[i].update(frame, this.players[i], this.map, this.viewport);
+          }
+        }
+        this.map.update(      frame, this.players, this.map, this.viewport);
+        this.viewport.update( frame, this.players, this.map, this.viewport);
       }
     },
 
@@ -444,8 +484,19 @@ Gauntlet = function() {
       if (this.canDraw) {
         this.render.map(     ctx, frame, this.viewport, this.map);
         this.render.entities(ctx, frame, this.viewport, this.map.entities);
-        this.render.player(  ctx, frame, this.viewport, this.player);
-        this.scoreboard.refreshPlayer(this.player);
+        // Render all active players
+        for (var i = 0; i < this.players.length; i++) {
+          if (this.players[i].active) {
+            this.render.player(ctx, frame, this.viewport, this.players[i]);
+          }
+        }
+        
+        // Update scoreboard for all players
+        for (var i = 0; i < this.players.length; i++) {
+          if (this.players[i].active) {
+            this.scoreboard.refreshPlayer(this.players[i]);
+          }
+        }
       }
       this.debugHeap(frame);
     },
@@ -454,7 +505,14 @@ Gauntlet = function() {
     // PUB/SUB EVENT HANDLING
     //------------------------
 
-    onPlayerDeath:  function()       { this.lose(); },
+    onPlayerDeath:  function()       { 
+      // Check if all players are dead
+      var alivePlayers = this.getActivePlayers().filter(function(p) { return p.health > 0; });
+      if (alivePlayers.length === 0) {
+        this.lose(); 
+      }
+    },
+
     onPlayerNuke:   function(player) { this.map.nuke(this.viewport, player); },
     onFxFinished:   function(fx)     { this.map.remove(fx); },
 
@@ -473,8 +531,13 @@ Gauntlet = function() {
     },
 
     onPlayerExit: function(player) {
-      if (!this.map.last)
+      player.exited = true;
+
+      // Check if all players have exited
+      var playersInLevel = this.getActivePlayers().filter(function(p) { return !p.exited; });
+      if (playersInLevel.length === 0 && !this.map.last) {
         this.nextLevel();
+      }
     },
 
     onDoorOpening: function(door, speed) {
@@ -546,8 +609,195 @@ Gauntlet = function() {
     },
 
     //------
+    // GAMEPAD CONTROLLERS
+    //------
+    onGamepadButton: function(gamepadIndex, buttonIndex, pressed) {
+      var buttons = Game.Gamepad.BUTTONS;
+      
+      if (this.is('menu')) {
+        switch(buttonIndex) {
+          case buttons.A:
+            this.start(PLAYER.WARRIOR, undefined, gamepadIndex)
+            break;
+          case buttons.B:  
+            this.start(PLAYER.ELF, undefined, gamepadIndex)
+            break;
+          case buttons.X:
+            this.start(PLAYER.WIZARD, undefined, gamepadIndex)
+            break;
+          case buttons.Y:
+            this.start(PLAYER.VALKYRIE, undefined, gamepadIndex)
+            break;
+        }
+      }
+      
+      if (!this.is('playing')) return;
+
+      var player = this.controllerAssignment[gamepadIndex];
+
+      if (!player || !player.active) {
+        switch(buttonIndex) {
+          case buttons.A:
+            this.addMultiPlayer(PLAYER.WARRIOR, gamepadIndex)
+            break;
+          case buttons.B:  
+            this.addMultiPlayer(PLAYER.ELF, gamepadIndex)
+            break;
+          case buttons.X:
+            this.addMultiPlayer(PLAYER.WIZARD, gamepadIndex)
+            break;
+          case buttons.Y:
+            this.addMultiPlayer(PLAYER.VALKYRIE, gamepadIndex)
+            break;
+        }
+        return;  // No player assigned to this gamepad or player is not active
+      }
+            
+      switch(buttonIndex) {
+        case buttons.A:           // Fire button
+          player.fire(pressed);
+          break;
+        case buttons.B:           // Nuke button
+          if (pressed) player.nuke();
+          break;
+        case buttons.DPAD_LEFT:
+          player.moveLeft(pressed);
+          break;
+        case buttons.DPAD_RIGHT:
+          player.moveRight(pressed);
+          break;
+        case buttons.DPAD_UP:
+          player.moveUp(pressed);
+          break;
+        case buttons.DPAD_DOWN:
+          player.moveDown(pressed);
+          break;
+        case buttons.START:
+          if (pressed) this.quit();
+          break;
+        case buttons.SELECT:
+          // Could be used for other functions
+          break;
+      }
+    },
+
+    onGamepadAnalog: function(gamepadIndex, stick, direction, x, y) {
+      if (!this.is('playing')) return;
+      
+      var player = this.controllerAssignment[gamepadIndex];
+      if (!player || !player.active) return;
+      
+      // Use left stick for movement
+      if (stick === 'left') {
+        // Apply new movement based on analog input
+        player.moveLeft((x < 0)) 
+        player.moveRight((x > 0));
+        player.moveUp((y < 0));
+        player.moveDown((y > 0));
+      }
+      
+      // Right stick could be used for aiming in the future
+    },
+
+    //------
     // MISC
     //------
+
+    getPlayer: function(index) {
+      return this.players[index];
+    },
+
+    addPlayer: function(type, controllerIndex) {
+      var player = new Player();
+      player.playerId = this.players.length;
+      if(!this.assignControls(player, controllerIndex)) {
+        //delete player;
+        return null
+      }
+      this.players.push(player);
+      player.join(type);
+      return player;
+    },
+
+    addMultiPlayer: function(type, controllerIndex) {
+      for (var p = 0; p < game.players.length; p++) {
+        if (this.players[p].type == type) {
+          return null; // Player of same type already exists
+        }
+      }
+      
+      var spawn = { x:-1, y:-1};
+
+      // Find a new spawn location
+      for (var p = 0; p < game.players.length; p++) {
+        if (this.players[p].active) {
+          if (this.players[p].type == type) {
+            return null; // Player of same type already exists
+          }
+          spawn.x = this.players[p].x + TILE;
+          spawn.y = this.players[p].y ; // Spawn above the active player
+          if (this.map.occupied( spawn.x, spawn.y, TILE, TILE)) {
+            spawn.x = this.players[p].x - TILE;
+            spawn.y = this.players[p].y; // Spawn below the active player
+            if (this.map.occupied( spawn.x, spawn.y, TILE, TILE)) {
+              return null;
+            }
+          }
+          break;
+        }
+      }         
+
+      var player = this.addPlayer(type, controllerIndex);
+      if (player) {
+        this.map.occupy(spawn.x, spawn.y, player);
+      }
+      return player;
+    },
+
+    assignControls: function(player, controllerIndex) {
+      if (controllerIndex !== undefined) {
+        this.controllerAssignment[controllerIndex] = player;
+      }
+      else if (this.p1Keyboard == null) {
+        this.p1Keyboard = player;
+      }
+      else if (this.p2Keyboard == null) {
+        this.p2Keyboard = player;
+      }
+      else {
+        return false;
+        // No more available controls
+      }
+      return true;
+    },
+
+    removePlayer: function(player) {
+      var index = this.players.indexOf(player);
+      if (index >= 0) {
+        this.players.splice(index, 1);
+        player.leave();
+      }
+
+      //Remove controls
+      if (p1Keyboard == player) {
+        p1Keyboard = null;
+      }
+      else if (p2Keyboard == player) {
+        p2Keyboard = null;
+      }
+      for(i = 0; i < this.controllerAssignment.length(); i++) {
+        if (this.controllerAssignment[i] == player) {
+          this.controllerAssignment.splice(i, 1);
+          break;
+        }
+      }
+    },
+
+    getActivePlayers: function() {
+      return this.players.filter(function(player) {
+        return player.active;
+      });
+    },
 
     saveLevel: function(nlevel) { this.storage[STORAGE.NLEVEL] = nlevel;             },
     loadLevel: function()       { return to.number(this.storage[STORAGE.NLEVEL], 1); },
@@ -558,9 +808,11 @@ Gauntlet = function() {
     loadHighWho:   function() { return this.storage[STORAGE.WHO];                     },
 
     saveHighScore: function() {
-      if (this.player.score > this.loadHighScore()) {
-        this.storage[STORAGE.SCORE] = this.player.score;
-        this.storage[STORAGE.WHO]   = this.player.type.name;
+      for (var p = 0; p < game.players.length; p++) {
+        if (this.players[p].score > this.loadHighScore()) {
+          this.storage[STORAGE.SCORE] = this.players[p].score;
+          this.storage[STORAGE.WHO] = this.players[p].type.name;
+        }
       }
     },
 
@@ -703,9 +955,16 @@ Gauntlet = function() {
           c, nc = cells.length,
           i, ni;
 
-      // have to check for any player FIRST, so even if player is near a wall or other monster he will still get hit (otherwise its possible to use monsters as semi-shields against other monsters)
-      if ((game.player != ignore) && overlapEntity(x, y, w, h, game.player))
-        return game.player;
+      // Check for players FIRST, but only if the moving entity is NOT a player
+      // This allows players to pass through each other
+      if (!ignore || !ignore.player) {
+        for (var p = 0; p < game.players.length; p++) {
+          var player = game.players[p];
+          if (player.active && (player != ignore) && overlapEntity(x, y, w, h, player)) {
+            return player;
+          }
+        }
+      }
 
       // now loop again checking for walls and other entities
       for(c = 0 ; c < nc ; c++) {
@@ -716,6 +975,10 @@ Gauntlet = function() {
           item = cell.occupied[i];
           if ((item != ignore) && !set_contains(checked, item)) {
             set_add(checked, item);
+            // Skip collision with other players if the moving entity is a player
+            if (ignore && ignore.player && item.player) {
+              continue;
+            }
             if (overlapEntity(x, y, w, h, item))
               return item;
           }
@@ -741,12 +1004,12 @@ Gauntlet = function() {
 
     //-------------------------------------------------------------------------
 
-    update: function(frame, player, map, viewport) {
+    update: function(frame, players, map, viewport) {
       var n, max, entity;
       for(n = 0, max = this.entities.length ; n < max ; n++) {
         entity = this.entities[n];
         if (entity.active && entity.update)
-          entity.update(frame, player, map, viewport);
+          entity.update(frame, players, map, viewport);
       }
     },
 
@@ -893,7 +1156,7 @@ Gauntlet = function() {
     monster: true,
     cbox:    CBOX.MONSTER,
 
-    update: function(frame, player, map, viewport) {
+    update: function(frame, players, map, viewport) {
 
       // dont bother trying to update monsters that are far away (a double viewport away)
       if (viewport.outside(this.x - viewport.w, this.y - viewport.h, 2*viewport.w, 2*viewport.h))
@@ -905,6 +1168,17 @@ Gauntlet = function() {
       // dont bother trying to update a monster that is still 'thinking'
       if (this.thinking && --this.thinking)
         return;
+
+      // Find first alive player
+      var away  = false
+      var player
+      for (var i = 0; i < players.length; i++) { 
+        player = players[i]
+        if (player.active()) {
+          away  = true
+          break;
+        }
+      }          
 
       // am i going towards a live player, or AWAY from a dead one, if away, my speed should be slow (the player is dead, I'm no longer interested in him)
       var away  = !player.active(),
@@ -1217,7 +1491,7 @@ Gauntlet = function() {
 
     active: function() { return !this.dead && !this.exiting; },
 
-    join: function(type) {
+    join: function(type, map) {
       this.type      = type;
       this.dead      = false;
       this.exiting   = false;
@@ -1590,8 +1864,8 @@ Gauntlet = function() {
       this.zoomingout = on
     },
 
-    update: function(frame, player, map, viewport) {
-      this.center(player, map);
+    update: function(frame, players, map, viewport) {
+      this.center(players[0], map);  // TODO: FIX...AVERAGE TO CENTER OF PLAYERS?
       if (this.zoomingout)
         this.zoom(1/TILE, player, map);
     }
@@ -1818,4 +2092,3 @@ Gauntlet = function() {
   //===========================================================================
 
 }
-
